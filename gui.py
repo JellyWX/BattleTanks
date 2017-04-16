@@ -3,6 +3,15 @@ from sys import exit
 import pygame
 from time import sleep
 
+def rot_center(image, angle):
+    """rotate an image while keeping its center and size"""
+    orig_rect = image.get_rect()
+    rot_image = pygame.transform.rotate(image, angle)
+    rot_rect = orig_rect.copy()
+    rot_rect.center = rot_image.get_rect().center
+    rot_image = rot_image.subsurface(rot_rect).copy()
+    return rot_image
+
 class GUI(object):
   def __init__(self,w,h,title):
     self.width = w
@@ -31,7 +40,6 @@ class GUI(object):
       raise ValueError
 
   def Text(self,t,s,anti=False,f='monospace'):
-
     self.f = pygame.font.SysFont(f, s).render(t,anti,self.color)
 
   def Rect(self,x,y,w,h):
@@ -56,8 +64,9 @@ class GUI(object):
     else:
       return pygame.key.get_pressed()
 
-  def Image(self,im,size_x,size_y,x,y):
+  def Image(self,im,x,y,size_x,size_y,rotation=0):
     im = pygame.transform.scale(im,(size_x,size_y))
+    im = rot_center(im,rotation)
     self.page.blit(im,(x,y))
 
   def mouseAction(self,k=None):

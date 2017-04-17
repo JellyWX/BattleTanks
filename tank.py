@@ -17,11 +17,19 @@ class Tank():
     self.ai = not player
 
   def move(self,vec,rotation):
+    if self.rotation > 360:
+      self.rotation -= 360
+    elif self.rotation < 0:
+      self.rotation += 360
     rotation = round(rotation,-1)
+    rot_diff = rotation - self.rotation
+    
+    if rot_diff < 1:
+      rot_diff += 360
 
-    if rotation - self.rotation < 180:
+    if rot_diff < 180:
       self.rotation -= 10
-    elif rotation - self.rotation > 180:
+    elif rot_diff > 180:
       self.rotation += 10
     else:
       self.x += round(vec[0])

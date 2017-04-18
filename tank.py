@@ -43,5 +43,6 @@ class Tank():
     self.gui.Image(self.images['tank1'],self.x-24,self.y-24,48,48,self.rotation)
     self.gui.Image(self.images['turret1'],self.x-24,self.y-24,48,48,self.turret_rotation)
 
-  #def attack(self,touch,vec):
-  #  self.bullet = Bullet(self,gui,self.im,self.x,self.y,)
+  def attack(self):
+    if not self.bullet.alive:
+      self.bullet = Bullet(self,gui,self.images,self.x,self.y,self.turret_rotation)

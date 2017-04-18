@@ -22,15 +22,16 @@ class Tank():
     elif self.rotation < 0:
       self.rotation += 360
     rotation = round(rotation,-1)
-    rot_diff = rotation - self.rotation
-    
-    if rot_diff < 1:
-      rot_diff += 360
+    rot_diff = (rotation - self.rotation) % 360
 
-    if rot_diff < 180:
-      self.rotation -= 10
-    elif rot_diff > 180:
+    '## Credits to /u/swimmer91 on Reddit. Many thanks! ##'
+    if rot_diff < 10:
+      self.x += round(vec[0])
+      self.y += round(vec[1])
+    elif rot_diff < 180:
       self.rotation += 10
+    elif rot_diff > 180:
+      self.rotation -= 10
     else:
       self.x += round(vec[0])
       self.y += round(vec[1])

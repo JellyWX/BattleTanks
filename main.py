@@ -39,7 +39,7 @@ def stage(n):
         final_vec = (speed*math.cos(rad_angle),speed*math.sin(rad_angle))
         final_rotation = math.atan2(final_vec[0],final_vec[1])*180/math.pi
 
-        player.move(final_vec,final_rotation)
+        player.move(final_vec,final_rotation+180)
 
     ## Rotate turret ##
     player.rotate_turret(final_rotation_turret+180)

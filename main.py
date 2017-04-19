@@ -40,14 +40,23 @@ def stage(n):
       if not (-8 < dx < 8 and -8 < dy < 8):
         rad_angle = math.atan2(dy,dx)
 
-        final_vec = (speed*math.cos(rad_angle),speed*math.sin(rad_angle))
+        hyp_tank = math.sqrt(dx*dx + dy*dy)
+
+        hyp_dis_x = dx / hyp_tank
+        hyp_dis_y = dy / hyp_tank
+
+        final_vec = (speed*hyp_dis_x,speed*hyp_dis_y)
         final_rotation = math.atan2(final_vec[0],final_vec[1])*180/math.pi
 
         player.move(final_vec,final_rotation+180)
 
-    elif gui.mouseAction(2):
-      rad_angle_bullet = math.atan2(dy,dx)
-      bullet_vec = (speed_bullet*math.cos(rad_angle_bullet),speed*math.sin(rad_angle_bullet))
+    if gui.mouseAction(2):
+      hyp_bullet = math.sqrt(dx*dx + dy*dy)
+
+      hyp_dis_x_bullet = dx / hyp_bullet
+      hyp_dis_y_bullet = dy / hyp_bullet
+
+      bullet_vec = (speed_bullet*hyp_dis_x_bullet,speed_bullet*hyp_dis_y_bullet)
 
       player.attack(bullet_vec)
 

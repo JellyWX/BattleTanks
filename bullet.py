@@ -29,4 +29,4 @@ class Bullet:
       self.alive = False
 
   def render(self):
-    self.gui.Image(self.images['bullet'],self.x,self.y,16,16,self.rotation)
+    self.gui.Image(self.images['bullet'],self.x,self.y,16,16,self.rotation+180)

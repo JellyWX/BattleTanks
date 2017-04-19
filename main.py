@@ -64,7 +64,8 @@ def stage(n):
     player.rotate_turret(final_rotation_turret+180)
 
     for p in player_sequence:
-      p.bullet.move()
+      for b in p.bullets:
+        b.move()
 
     return 0
 
@@ -81,7 +82,8 @@ while not done:
 
   for i in render_sequence:
     if isinstance(i,Tank):
-      i.bullet.render()
+      for b in i.bullets:
+        b.render()
     i.render()
 
   gui.flip(64)

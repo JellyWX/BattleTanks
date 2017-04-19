@@ -1,4 +1,5 @@
 from bullet import Bullet
+import time
 
 class Tank():
   def __init__(self,gui_,im,x,y,player=True):
@@ -8,7 +9,8 @@ class Tank():
 
     ## Subcritical data ##
     #self.map = grid
-    self.bullet = Bullet(self.gui,self.images,-10,-10,(0,0))
+    self.bullets = []
+    self.last_fire = time.time()
 
     ## Critical data ##
     self.x = x
@@ -47,5 +49,13 @@ class Tank():
     self.gui.Image(self.images['turret1'],self.x-24,self.y-24,48,48,self.turret_rotation)
 
   def attack(self,vec):
-    if not self.bullet.alive:
-      self.bullet = Bullet(self.gui,self.images,self.x,self.y,vec)
+    if  time.time() - self.last_fire > 1:
+      if len(self.bullets) < 3:
+        self.bullets.append(Bullet(self.gui,self.images,self.x,self.y,vec))
+        self.last_fire = time.time()
+      else:
+        for i in range(0,len(self.bullets)):
+          if self.bullets[i].alive == False:
+            self.bullets[i] = Bullet(self.gui,self.images,self.x,self.y,vec)
+            self.last_fire = time.time()
+            break

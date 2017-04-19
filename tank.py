@@ -1,3 +1,5 @@
+from bullet import Bullet
+
 class Tank():
   def __init__(self,gui_,im,x,y,player=True):
     ## Rendering data ##
@@ -6,6 +8,7 @@ class Tank():
 
     ## Subcritical data ##
     #self.map = grid
+    self.bullet = Bullet(self.gui,self.images,-10,-10,(0,0))
 
     ## Critical data ##
     self.x = x
@@ -24,7 +27,7 @@ class Tank():
     rotation = round(rotation,-1)
     rot_diff = (rotation - self.rotation) % 360
 
-    '## Credits to /u/swimmer91 on Reddit. Many thanks! ##'
+    '## Credits to /u/swimmer91 on Reddit for help with the line above. Many thanks! ##'
     if rot_diff < 10:
       self.x += round(vec[0])
       self.y += round(vec[1])
@@ -43,6 +46,6 @@ class Tank():
     self.gui.Image(self.images['tank1'],self.x-24,self.y-24,48,48,self.rotation)
     self.gui.Image(self.images['turret1'],self.x-24,self.y-24,48,48,self.turret_rotation)
 
-  def attack(self):
+  def attack(self,vec):
     if not self.bullet.alive:
-      self.bullet = Bullet(self,gui,self.images,self.x,self.y,self.turret_rotation)
+      self.bullet = Bullet(self.gui,self.images,self.x,self.y,vec)

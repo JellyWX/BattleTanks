@@ -10,8 +10,10 @@ images = {}
 done = False
 process_stage = 0
 player = Tank(gui,images,10,10)
-render_sequence = [player]
+player_sequence = [player]
+render_sequence = player_sequence
 speed = 1
+speed_bullet = 2
 
 for f in os.listdir('assets/images'):
   if f[-4:] == '.png':
@@ -30,7 +32,9 @@ def stage(n):
     dx = pygame.mouse.get_pos()[0] - player.x
     dy = pygame.mouse.get_pos()[1] - player.y
 
-    final_rotation_turret = math.atan2(dx,dy)*180/math.pi
+    rad_angle_turret = math.atan2(dx,dy)
+
+    final_rotation_turret = rad_angle_turret*180/math.pi
 
     if gui.mouseAction(0):
       if not (-8 < dx < 8 and -8 < dy < 8):
@@ -41,8 +45,17 @@ def stage(n):
 
         player.move(final_vec,final_rotation+180)
 
+    elif gui.mouseAction(2):
+      rad_angle_bullet = math.atan2(dy,dx)
+      bullet_vec = (speed_bullet*math.cos(rad_angle_bullet),speed*math.sin(rad_angle_bullet))
+
+      player.attack(bullet_vec)
+
     ## Rotate turret ##
     player.rotate_turret(final_rotation_turret+180)
+
+    for p in player_sequence:
+      p.bullet.move()
 
     return 0
 
@@ -58,6 +71,8 @@ while not done:
   gui.page.fill((0,0,0))
 
   for i in render_sequence:
+    if isinstance(i,Tank):
+      i.bullet.render()
     i.render()
 
   gui.flip(64)

@@ -1,24 +1,29 @@
 from gui import GUI
 from tank import Tank
+from bullet import Bullet
+from imageLoader import imageLoader
+
 from random import random
+
 import math
 import os
 import pygame
 
 gui = GUI(400,400,'Battle Tanks')
-images = {}
 done = False
 process_stage = 0
-player = Tank(gui,images,10,10)
+player = Tank(10,10)
 player_sequence = [player]
 render_sequence = player_sequence
 speed = 1
 speed_bullet = 2
 
-for f in os.listdir('assets/images'):
-  if f[-4:] == '.png':
-    print('Loading asset ' + f)
-    images[f[0:-4]] = pygame.image.load('assets/images/' + f)
+imageloader = imageLoader()
+
+Tank.gui = gui
+Tank.images = images
+Bullet.gui = gui
+Bullet.images = images
 
 def stage(n):
   global gui

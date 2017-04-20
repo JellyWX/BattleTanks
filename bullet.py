@@ -2,10 +2,10 @@ import time
 import math
 
 class Bullet:
-  def __init__(self,gui,im,x,y,vec):
-    ## Rendering data ##
-    self.gui = gui
-    self.images = im
+
+  gui = 0
+  images = 0
+  def __init__(self,x,y,vec):
 
     ## Subcritical data ##
     #self.grid

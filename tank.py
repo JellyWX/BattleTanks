@@ -1,11 +1,11 @@
 from bullet import Bullet
 import time
 
-class Tank():
-  def __init__(self,gui_,im,x,y,player=True):
-    ## Rendering data ##
-    self.gui = gui_
-    self.images = im
+class Tank:
+  
+  gui = 0
+  images = 0
+  def __init__(self,x,y,player=True):
 
     ## Subcritical data ##
     #self.map = grid
@@ -45,17 +45,17 @@ class Tank():
     self.turret_rotation = rotation
 
   def render(self):
-    self.gui.Image(self.images['tank1'],self.x-24,self.y-24,48,48,self.rotation)
-    self.gui.Image(self.images['turret1'],self.x-24,self.y-24,48,48,self.turret_rotation)
+    Tank.gui.Image(Tank.images['tank1'],self.x-24,self.y-24,48,48,self.rotation)
+    Tank.gui.Image(Tank.images['turret1'],self.x-24,self.y-24,48,48,self.turret_rotation)
 
   def attack(self,vec):
     if  time.time() - self.last_fire > 1:
       if len(self.bullets) < 3:
-        self.bullets.append(Bullet(self.gui,self.images,self.x,self.y,vec))
+        self.bullets.append(Bullet(Tank.gui,Tank.images,self.x,self.y,vec))
         self.last_fire = time.time()
       else:
         for i in range(0,len(self.bullets)):
           if self.bullets[i].alive == False:
-            self.bullets[i] = Bullet(self.gui,self.images,self.x,self.y,vec)
+            self.bullets[i] = Bullet(Tank.gui,Tank.images,self.x,self.y,vec)
             self.last_fire = time.time()
             break

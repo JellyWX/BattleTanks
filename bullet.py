@@ -22,7 +22,7 @@ class Bullet:
     print('new bullet at ' + str(self.x) + ' ' + str(self.y))
 
   def move(self):
-    if time.time() - self.time < 2.5:
+    if time.time() - self.time < 6:
       self.x += self.vec[0]
       self.y += self.vec[1]
     else:
@@ -30,4 +30,4 @@ class Bullet:
 
   def render(self):
     if self.alive:
-      self.gui.Image(self.images['bullet'],self.x-8,self.y-8,16,16,self.rotation+180)
+      self.gui.Image(self.images.getImage('bullet'),self.x-8,self.y-8,16,16,self.rotation+180)

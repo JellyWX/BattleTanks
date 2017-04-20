@@ -18,12 +18,12 @@ render_sequence = player_sequence
 speed = 1
 speed_bullet = 2
 
-imageloader = imageLoader()
+imageloader = imageLoader('assets/images/')
 
 Tank.gui = gui
-Tank.images = images
+Tank.images = imageloader
 Bullet.gui = gui
-Bullet.images = images
+Bullet.images = imageloader
 
 def stage(n):
   global gui

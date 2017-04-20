@@ -1,6 +1,8 @@
 from gui import GUI
 from tank import Tank
 from bullet import Bullet
+from tile import Tile
+from grid import Grid
 from imageLoader import imageLoader
 
 from random import random
@@ -14,9 +16,9 @@ done = False
 process_stage = 0
 player = Tank(10,10)
 player_sequence = [player]
-render_sequence = player_sequence
 speed = 1
 speed_bullet = 2
+
 
 imageloader = imageLoader('assets/images/')
 
@@ -24,6 +26,12 @@ Tank.gui = gui
 Tank.images = imageloader
 Bullet.gui = gui
 Bullet.images = imageloader
+Grid.gui = gui
+Tile.images = imageloader
+
+grid = Grid(4,4)
+
+render_sequence =  [grid] + player_sequence
 
 def stage(n):
   global gui

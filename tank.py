@@ -5,6 +5,7 @@ class Tank:
 
   gui = 0
   images = 0
+  grid = 0
   def __init__(self,x,y,player=True):
 
     ## Subcritical data ##
@@ -15,13 +16,18 @@ class Tank:
     ## Critical data ##
     self.x = x
     self.y = y
+    self.vec = (0,0)
 
     self.rotation = 0
     self.turret_rotation = 0
 
+    self.grid.addRenderingComponent(self,zprior=2)
+
     self.ai = not player
 
-  def move(self,vec,rotation):
+  def move_cursor(self,vec,rotation):
+    self.goto_rotation = rotation
+
     if self.rotation > 360:
       self.rotation -= 360
     elif self.rotation < 0:
@@ -40,6 +46,16 @@ class Tank:
     else:
       self.x += round(vec[0])
       self.y += round(vec[1])
+    self.vec = vec
+
+  def move_keys(self,direction=0):
+    if round(self.goto_rotation,-1) == self.rotation:
+      if direction == 0:
+        self.x -= self.vec[0]
+        self.y -= self.vec[1]
+      if direction == 1:
+        self.x += self.vec[0]
+        self.y += self.vec[1]
 
   def rotate_turret(self,rotation):
     self.turret_rotation = rotation

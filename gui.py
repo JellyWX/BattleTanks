@@ -58,7 +58,7 @@ class GUI(object):
   def event(self):
     return pygame.event.get()
 
-  def keysDown(self,k=None):
+  def keyAction(self,k=None):
     if k != None:
       return pygame.key.get_pressed()[k]
     else:

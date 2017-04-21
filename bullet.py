@@ -5,6 +5,7 @@ class Bullet:
 
   gui = 0
   images = 0
+  grid = 0
   def __init__(self,x,y,vec):
 
     ## Subcritical data ##
@@ -19,6 +20,7 @@ class Bullet:
 
     self.rotation = math.atan2(self.vec[0],self.vec[1])*180/math.pi
 
+    self.grid.addRenderingComponent(self,zprior=1)
     print('new bullet at ' + str(self.x) + ' ' + str(self.y))
 
   def move(self):

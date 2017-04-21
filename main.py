@@ -11,7 +11,21 @@ import math
 import os
 import pygame
 
+imageloader = imageLoader('assets/images/')
+
 gui = GUI(400,400,'Battle Tanks')
+grid = Grid(4,4)
+
+Tank.gui = gui
+Tank.images = imageloader
+Tank.grid = grid
+Bullet.gui = gui
+Bullet.images = imageloader
+Bullet.grid = grid
+Grid.gui = gui
+Tile.images = imageloader
+
+
 done = False
 process_stage = 0
 player = Tank(10,10)
@@ -20,18 +34,8 @@ speed = 1
 speed_bullet = 2
 
 
-imageloader = imageLoader('assets/images/')
 
-Tank.gui = gui
-Tank.images = imageloader
-Bullet.gui = gui
-Bullet.images = imageloader
-Grid.gui = gui
-Tile.images = imageloader
-
-grid = Grid(4,4)
-
-render_sequence =  [grid] + player_sequence
+render_sequence =  [grid]
 
 def stage(n):
   global gui
@@ -61,7 +65,13 @@ def stage(n):
         final_vec = (speed*hyp_dis_x,speed*hyp_dis_y)
         final_rotation = math.atan2(final_vec[0],final_vec[1])*180/math.pi
 
-        player.move(final_vec,final_rotation+180)
+        player.move_cursor(final_vec,final_rotation+180)
+
+    elif gui.keyAction(pygame.K_UP) or gui.keyAction(pygame.K_w):
+      player.move_keys(1)
+
+    elif gui.keyAction(pygame.K_DOWN) or gui.keyAction(pygame.K_s):
+      player.move_keys(0)
 
     if gui.mouseAction(2):
       hyp_bullet = math.sqrt(dx*dx + dy*dy)
@@ -72,6 +82,8 @@ def stage(n):
       bullet_vec = (speed_bullet*hyp_dis_x_bullet,speed_bullet*hyp_dis_y_bullet)
 
       player.attack(bullet_vec)
+
+
 
     ## Rotate turret ##
     player.rotate_turret(final_rotation_turret+180)

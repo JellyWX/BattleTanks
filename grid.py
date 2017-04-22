@@ -26,7 +26,7 @@ class Grid:
     if x <= 0 or y <= 0:
       return True
     if x >= self.size_x*self.scale or y >= self.size_y*self.scale:
-      print('collision at ' + str(x) + ',' + str(y))
+      #print('collision at ' + str(x) + ',' + str(y))
       return True
     return False
 

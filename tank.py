@@ -1,5 +1,7 @@
 from bullet import Bullet
+
 import time
+import math
 
 class Tank:
 
@@ -60,14 +62,9 @@ class Tank:
         self.y += self.vec[1]
 
   def collisions(self,x_add,y_add):
-    if self.grid.grabCollision(self.x + x_add, self.y + y_add):
-      return False
-    return True
-
-  def collisions_(self,x_add,y_add):
     r_sq = 16*16
     for i in range(-16,16):
-      if self.grid.grabCollision(self.x + r_sq - (i*i) + x_add,self.y + r_sq - (i*i) + y_add):
+      if self.grid.grabCollision(self.x + i + x_add,self.y + math.sqrt(r_sq - (i*i)) + y_add):
         return False
         break
     return True

@@ -6,6 +6,7 @@ class Tank:
   gui = 0
   images = 0
   grid = 0
+
   def __init__(self,x,y,player=True):
 
     ## Subcritical data ##
@@ -36,20 +37,21 @@ class Tank:
     rot_diff = (rotation - self.rotation) % 360
 
     '## Credits to /u/swimmer91 on Reddit for help with the line above. Many thanks! ##'
-    if rot_diff < 10:
-      self.x += round(vec[0])
-      self.y += round(vec[1])
-    elif rot_diff < 180:
-      self.rotation += 10
-    elif rot_diff > 180:
-      self.rotation -= 10
-    else:
-      self.x += round(vec[0])
-      self.y += round(vec[1])
+    if self.collisions(round(vec[0]),round(vec[1])):
+      if rot_diff < 10:
+        self.x += round(vec[0])
+        self.y += round(vec[1])
+      elif rot_diff < 180:
+        self.rotation += 10
+      elif rot_diff > 180:
+        self.rotation -= 10
+      else:
+        self.x += round(vec[0])
+        self.y += round(vec[1])
     self.vec = vec
 
   def move_keys(self,direction=0):
-    if round(self.goto_rotation,-1) == self.rotation:
+    if round(self.goto_rotation,-1) == self.rotation and self.collisions(self.vec[0],self.vec[1]):
       if direction == 0:
         self.x -= self.vec[0]
         self.y -= self.vec[1]
@@ -57,9 +59,21 @@ class Tank:
         self.x += self.vec[0]
         self.y += self.vec[1]
 
+  def collisions(self,x_add,y_add):
+    if self.grid.grabCollision(self.x + x_add, self.y + y_add):
+      return False
+    return True
+
+  def collisions_(self,x_add,y_add):
+    r_sq = 16*16
+    for i in range(-16,16):
+      if self.grid.grabCollision(self.x + r_sq - (i*i) + x_add,self.y + r_sq - (i*i) + y_add):
+        return False
+        break
+    return True
+
   def rotate_turret(self,rotation):
     self.turret_rotation = rotation
-
 
   def attack(self,vec):
     if  time.time() - self.last_fire > 1:

@@ -28,7 +28,7 @@ Tile.images = imageloader
 
 done = False
 process_stage = 0
-player = Tank(10,10)
+player = Tank(40,40)
 player_sequence = [player]
 speed = 1
 speed_bullet = 2

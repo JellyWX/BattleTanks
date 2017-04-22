@@ -64,7 +64,12 @@ class Tank:
   def collisions(self,x_add,y_add):
     r_sq = 16*16
     for i in range(-16,16):
-      if self.grid.grabCollision(self.x + i + x_add,self.y + math.sqrt(r_sq - (i*i)) + y_add):
+      x_val = self.x + i + x_add
+      i_sq_val = math.sqrt(r_sq - (i*i))
+      y_val = self.y + y_add
+
+      if (self.grid.grabCollision(x_val, y_val + i_sq_val)
+         or self.grid.grabCollision(x_val, y_val - i_sq_val)):
         return False
         break
     return True
@@ -87,3 +92,9 @@ class Tank:
   def render(self):
     Tank.gui.Image(Tank.images.getImage('tank1'),self.x-24,self.y-24,48,48,self.rotation)
     Tank.gui.Image(Tank.images.getImage('turret1'),self.x-24,self.y-24,48,48,self.turret_rotation)
+
+    r_sq = 16*16
+    for i in range(-16,16):
+      self.gui.Color('ff0000')
+      self.gui.Rect(self.x + i,round(self.y + math.sqrt(r_sq - (i*i))),2,2)
+      self.gui.Rect(self.x + i,round(self.y - math.sqrt(r_sq - (i*i))),2,2)

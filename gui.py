@@ -64,9 +64,13 @@ class GUI(object):
     else:
       return pygame.key.get_pressed()
 
-  def Image(self,im,x,y,size_x,size_y,rotation=0):
+  def Image(self,im,x,y,size_x,size_y,rotation=0,tile=False):
     im = pygame.transform.scale(im,(size_x,size_y))
     im = rot_center(im,rotation)
+    if tile:
+      im = pygame.transform.scale(im,(size_x*4,size_y*4))
+      self.page.blit(im,(x,y),(0.75*size_x,0.75*size_y,size_x,size_y))
+      return
     self.page.blit(im,(x,y))
 
   def mouseAction(self,k=None):

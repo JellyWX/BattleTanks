@@ -52,7 +52,7 @@ class Grid:
     for i in range(len(self.map)):
       for j in range(len(self.map[i])):
         tile_at = self.map[i][j]
-        Grid.gui.Image(tile_at.render(),j*self.scale,i*self.scale,self.scale*tile_at.size_rescale[0],self.scale*tile_at.size_rescale[1],tile_at.rotation)
+        Grid.gui.Image(tile_at.render(),j*self.scale,i*self.scale,self.scale*tile_at.size_rescale[0],self.scale*tile_at.size_rescale[1],tile_at.rotation,True)
 
     li_len = len(self.contents)
     for i in range(len(self.contents)):

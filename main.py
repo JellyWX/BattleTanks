@@ -14,7 +14,7 @@ import pygame
 imageloader = imageLoader('assets/images/')
 
 gui = GUI(400,400,'Battle Tanks')
-grid = Grid(4,4)
+grid = Grid(16,16,'park')
 
 Tank.gui = gui
 Tank.images = imageloader
@@ -30,8 +30,8 @@ done = False
 process_stage = 0
 player = Tank(40,40)
 player_sequence = [player]
-speed = 1
-speed_bullet = 2
+speed = 2
+speed_bullet = 4
 
 
 

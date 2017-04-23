@@ -92,9 +92,3 @@ class Tank:
   def render(self):
     Tank.gui.Image(Tank.images.getImage('tank1'),self.x-24,self.y-24,48,48,self.rotation)
     Tank.gui.Image(Tank.images.getImage('turret1'),self.x-24,self.y-24,48,48,self.turret_rotation)
-
-    r_sq = 16*16
-    for i in range(-16,16):
-      self.gui.Color('ff0000')
-      self.gui.Rect(self.x + i,round(self.y + math.sqrt(r_sq - (i*i))),2,2)
-      self.gui.Rect(self.x + i,round(self.y - math.sqrt(r_sq - (i*i))),2,2)

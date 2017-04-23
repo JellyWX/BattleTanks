@@ -9,7 +9,7 @@ class Grid:
     self.size_x = x
     self.size_y = y
 
-    self.scale = 64
+    self.scale = 32
 
     self.map = []
     if preset == 'empty':
@@ -17,6 +17,14 @@ class Grid:
         self.map.append([])
         for j in range(self.size_x):
           self.map[i].append(GrassTile())
+    elif preset == 'park':
+      for i in range(self.size_y):
+        self.map.append([])
+        for j in range(self.size_x):
+          if j == 0 or j == self.size_y - 1:
+            self.map[i].append(RoadTile())
+          else:
+            self.map[i].append(GrassTile())
 
     self.contents = []
 
@@ -26,7 +34,6 @@ class Grid:
     if x <= 0 or y <= 0:
       return True
     if x >= self.size_x*self.scale or y >= self.size_y*self.scale:
-      #print('collision at ' + str(x) + ',' + str(y))
       return True
     return False
 
@@ -44,7 +51,8 @@ class Grid:
   def render(self):
     for i in range(len(self.map)):
       for j in range(len(self.map[i])):
-        Grid.gui.Image(self.map[i][j].render(),j*self.scale,i*self.scale,self.scale,self.scale)
+        tile_at = self.map[i][j]
+        Grid.gui.Image(tile_at.render(),j*self.scale,i*self.scale,self.scale*tile_at.size_rescale[0],self.scale*tile_at.size_rescale[1],tile_at.rotation)
 
     li_len = len(self.contents)
     for i in range(len(self.contents)):

@@ -33,8 +33,6 @@ player_sequence = [player]
 speed = 2
 speed_bullet = 4
 
-
-
 render_sequence =  [grid]
 
 def stage(n):

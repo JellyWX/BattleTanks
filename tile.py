@@ -1,7 +1,7 @@
 from tank import Tank
 from bullet import Bullet
 
-from random import randint
+from random import randint, choice
 
 class Tile:
   grid = 0
@@ -25,3 +25,9 @@ class GrassTile(Tile):
 class RoadTile(Tile):
   def assign(self):
     return 'road'
+
+class FlowerTile(Tile):
+  def __init__(self):
+    super(FlowerTile,self).__init__()
+    self.size_rescale = (0.1,0.1)
+    self.texture = choice(['flower1','flower2','flower3'])

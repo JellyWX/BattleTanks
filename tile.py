@@ -26,7 +26,7 @@ class RoadTile(Tile):
   def assign(self):
     return 'road'
 
-class FlowerTile(Tile):
+class FlowerDecor(Tile):
   def __init__(self):
     super(FlowerTile,self).__init__()
     self.size_rescale = (0.1,0.1)

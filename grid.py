@@ -1,4 +1,5 @@
 from tile import *
+from random import randint
 
 class Grid:
 
@@ -47,6 +48,11 @@ class Grid:
         except IndexError:
           self.contents.append([])
       self.contents[zprior].append(obj)
+
+  def Decorator(self,tile,number,base_tile='all'):
+    for _ in range(number):
+      rx = randint(0,size_x*self.scale)
+      ry = randint(0,size_y*self.scale)
 
   def render(self):
     for i in range(len(self.map)):

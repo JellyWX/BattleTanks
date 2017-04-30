@@ -20,7 +20,7 @@ class Bullet:
 
     self.rotation = math.atan2(self.vec[0],self.vec[1])*180/math.pi
 
-    self.grid.addRenderingComponent(self,zprior=1)
+    self.grid.addRenderingComponent(self,zprior=4)
     print('new bullet at ' + str(self.x) + ' ' + str(self.y))
 
   def move(self):

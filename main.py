@@ -4,6 +4,7 @@ from bullet import Bullet
 from tile import Tile
 from grid import Grid
 from imageLoader import imageLoader
+from tile import Decorator
 
 from random import random
 
@@ -24,6 +25,7 @@ Bullet.images = imageloader
 Bullet.grid = grid
 Grid.gui = gui
 Tile.images = imageloader
+Decorator.grid = grid
 
 
 done = False

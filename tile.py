@@ -3,7 +3,7 @@ from bullet import Bullet
 
 from random import randint, choice
 
-class Tile:
+class Tile(object):
   grid = 0
   images = 0
   def __init__(self):
@@ -26,8 +26,14 @@ class RoadTile(Tile):
   def assign(self):
     return 'road'
 
-class FlowerDecor(Tile):
-  def __init__(self):
-    super(FlowerTile,self).__init__()
+class Flower:
+  gui = 0
+  images = 0
+  def __init__(self,x,y):
     self.size_rescale = (0.1,0.1)
-    self.texture = choice(['flower1','flower2','flower3'])
+    self.texture = choice(['flower1','flower2'])
+    self.x = x
+    self.y = y
+
+  def render(self):
+    pass

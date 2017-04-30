@@ -24,7 +24,7 @@ class Tank:
     self.rotation = 0
     self.turret_rotation = 0
 
-    self.grid.addRenderingComponent(self,zprior=2)
+    self.grid.addRenderingComponent(self,zprior=5)
 
     self.ai = not player
 

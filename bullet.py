@@ -32,4 +32,4 @@ class Bullet:
 
   def render(self):
     if self.alive:
-      self.gui.Image(self.images.getImage('bullet'),self.x-8,self.y-8,16,16,self.rotation+180)
+      self.gui.Image(self.images.getImage('bullet'),self.x-8,self.y-8,int(0.25*self.grid.scale),int(0.25*self.grid.scale),self.rotation+180)

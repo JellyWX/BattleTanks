@@ -90,5 +90,5 @@ class Tank:
             break
 
   def render(self):
-    Tank.gui.Image(Tank.images.getImage('tank1'),self.x-24,self.y-24,48,48,self.rotation)
-    Tank.gui.Image(Tank.images.getImage('turret1'),self.x-24,self.y-24,48,48,self.turret_rotation)
+    Tank.gui.Image(Tank.images.getImage('tank1'),self.x-24,self.y-24,int(1.5*self.grid.scale),int(1.5*self.grid.scale),self.rotation)
+    Tank.gui.Image(Tank.images.getImage('turret1'),self.x-24,self.y-24,int(1.5*self.grid.scale),int(1.5*self.grid.scale),self.turret_rotation)

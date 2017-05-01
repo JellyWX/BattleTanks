@@ -29,6 +29,8 @@ class Grid:
 
     self.contents = []
 
+    self.decorations = []
+
   def grabCollision(self,x,y):
     x = round(x)
     y = round(y)
@@ -51,8 +53,12 @@ class Grid:
 
   def Decorator(self,tile,number,base_tile='all'):
     for _ in range(number):
-      rx = randint(0,size_x*self.scale)
-      ry = randint(0,size_y*self.scale)
+      rx = randint(0,self.size_x*self.scale-1)
+      ry = randint(0,self.size_y*self.scale-1)
+      while base_tile not in self.map[ry // self.scale][rx // self.scale].name:
+        rx = randint(0,self.size_x*self.scale-1)
+        ry = randint(0,self.size_y*self.scale-1)
+      self.addRenderingComponent(tile(rx,ry),zprior=2)
 
   def render(self):
     for i in range(len(self.map)):

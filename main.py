@@ -2,9 +2,9 @@ from gui import GUI
 from tank import Tank
 from bullet import Bullet
 from tile import Tile
+from tile import Flower
 from grid import Grid
 from imageLoader import imageLoader
-from tile import Decorator
 
 from random import random
 
@@ -25,8 +25,9 @@ Bullet.images = imageloader
 Bullet.grid = grid
 Grid.gui = gui
 Tile.images = imageloader
-Decorator.grid = grid
-
+Flower.gui = gui
+Flower.grid = grid
+Flower.images = imageloader
 
 done = False
 process_stage = 0
@@ -36,6 +37,8 @@ speed = 2
 speed_bullet = 4
 
 render_sequence =  [grid]
+
+grid.Decorator(Flower,10,base_tile='grass')
 
 def stage(n):
   global gui

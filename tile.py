@@ -1,6 +1,3 @@
-from tank import Tank
-from bullet import Bullet
-
 from random import randint, choice
 
 class Tile(object):
@@ -8,7 +5,7 @@ class Tile(object):
   images = 0
   def __init__(self):
     self.name = ['all']
-    self.permitCollisions = [Tank,Bullet]
+    self.permitCollisions = []
     self.texture = self.assign()
     self.size_rescale = (1,1)
     self.rotation = randint(0,359)
@@ -34,6 +31,7 @@ class Flower:
   gui = 0
   images = 0
   def __init__(self,x,y):
+    self.permitCollisions = []
     self.size_rescale = (0.5,0.5)
     self.texture = choice(['flower1','flower2'])
     self.x = x

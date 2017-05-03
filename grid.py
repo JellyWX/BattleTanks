@@ -1,6 +1,8 @@
 from tile import *
 from random import randint
 
+import math
+
 class Grid:
 
   gui = 0
@@ -31,13 +33,24 @@ class Grid:
 
     self.decorations = []
 
-  def grabCollision(self,x,y):
-    x = round(x)
-    y = round(y)
-    if x <= 0 or y <= 0:
-      return True
-    if x >= self.size_x*self.scale or y >= self.size_y*self.scale:
-      return True
+  def grabCollision(self,x,y,t,r=16):
+    r_sq = 16*16
+    for i in range(-r,r):
+      x_val = x + i
+      i_sq_val = math.sqrt(r_sq - (i*i))
+      y_val = [y + i_sq_val,y - i_sq_val]
+      x_val = round(x_val)
+      y_val[0] = round(y_val[0])
+      y_val[1] = round(y_val[1])
+      if x_val <= 0 or y_val[0] <= 0 or y_val[1] <= 0:
+        return True
+      if x_val >= self.size_x*self.scale or y_val[0] >= self.size_y*self.scale or y_val[1] >= self.size_y*self.scale:
+        return True
+    for i in self.contents:
+      for j in i:
+        if t in j.permitCollisions:
+          if (x - r/2 < j.x < x + r/2) and (y - r/2 < j.y < y + r/2):
+            return True
     return False
 
   def addRenderingComponent(self,obj,zprior=0):

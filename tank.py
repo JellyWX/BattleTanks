@@ -24,6 +24,8 @@ class Tank:
     self.rotation = 0
     self.turret_rotation = 0
 
+    self.permitCollisions = []
+
     self.grid.addRenderingComponent(self,zprior=5)
 
     self.ai = not player
@@ -62,16 +64,8 @@ class Tank:
         self.y += self.vec[1]
 
   def collisions(self,x_add,y_add):
-    r_sq = 16*16
-    for i in range(-16,16):
-      x_val = self.x + i + x_add
-      i_sq_val = math.sqrt(r_sq - (i*i))
-      y_val = self.y + y_add
-
-      if (self.grid.grabCollision(x_val, y_val + i_sq_val)
-         or self.grid.grabCollision(x_val, y_val - i_sq_val)):
-        return False
-        break
+    if self.grid.grabCollision(self.x + x_add, self.y + y_add,'tank'):
+      return False
     return True
 
   def rotate_turret(self,rotation):

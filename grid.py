@@ -1,13 +1,11 @@
 from tile import *
 from random import randint
+from BaseClass import BaseClass
 
 import math
 
-class Grid:
-
-  gui = 0
-  def __init__(self,x,y,preset='empty'):
-    Tile.grid = self
+class Grid(BaseClass):
+  def __init__(self,x,y):
 
     self.size_x = x
     self.size_y = y
@@ -15,12 +13,19 @@ class Grid:
     self.scale = 32
 
     self.map = []
-    if preset == 'empty':
+
+
+    self.contents = []
+
+    self.decorations = []
+
+  def Draw(self,t='empty'):
+    if t == 'empty':
       for i in range(self.size_y):
         self.map.append([])
         for j in range(self.size_x):
           self.map[i].append(GrassTile())
-    elif preset == 'park':
+    elif t == 'park':
       for i in range(self.size_y):
         self.map.append([])
         for j in range(self.size_x):
@@ -29,12 +34,8 @@ class Grid:
           else:
             self.map[i].append(GrassTile())
 
-    self.contents = []
-
-    self.decorations = []
-
   def grabCollision(self,x,y,t,r=16):
-    r_sq = 16*16
+    r_sq = r*r
     for i in range(-r,r):
       x_val = x + i
       i_sq_val = math.sqrt(r_sq - (i*i))
@@ -49,7 +50,8 @@ class Grid:
     for i in self.contents:
       for j in i:
         if t in j.permitCollisions:
-          if (x - r/2 < j.x < x + r/2) and (y - r/2 < j.y < y + r/2):
+          j_size = [int(self.scale*j.size_rescale[0]),int(self.scale*j.size_rescale[1])]
+          if (x - j_size[0]/2 < j.x < x + j_size[0]/2) and (y - j_size[1]/2 < j.y < y + j_size[1]/2):
             return True
     return False
 
@@ -64,14 +66,14 @@ class Grid:
           self.contents.append([])
       self.contents[zprior].append(obj)
 
-  def Decorator(self,tile,number,base_tile='all'):
+  def Decorator(self,tile,number,base_tile='all',z=2):
     for _ in range(number):
       rx = randint(0,self.size_x*self.scale-1)
       ry = randint(0,self.size_y*self.scale-1)
       while base_tile not in self.map[ry // self.scale][rx // self.scale].name:
         rx = randint(0,self.size_x*self.scale-1)
         ry = randint(0,self.size_y*self.scale-1)
-      self.addRenderingComponent(tile(rx,ry),zprior=2)
+      self.addRenderingComponent(tile(rx,ry),zprior=z)
 
   def render(self):
     for i in range(len(self.map)):

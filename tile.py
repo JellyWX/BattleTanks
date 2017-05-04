@@ -1,8 +1,7 @@
 from random import randint, choice
+from BaseClass import BaseClass
 
-class Tile(object):
-  grid = 0
-  images = 0
+class Tile(BaseClass):
   def __init__(self):
     self.name = ['all']
     self.permitCollisions = []
@@ -26,10 +25,8 @@ class RoadTile(Tile):
     self.name.append('road')
     return 'road'
 
-class Flower:
-  grid = 0
-  gui = 0
-  images = 0
+
+class Flower(BaseClass):
   def __init__(self,x,y):
     self.permitCollisions = []
     self.size_rescale = (0.5,0.5)
@@ -38,4 +35,20 @@ class Flower:
     self.y = y
 
   def render(self):
-    self.gui.Image(self.images.getImage(self.texture),self.x,self.y,int(self.grid.scale*self.size_rescale[0]),int(self.grid.scale*self.size_rescale[1]))
+    size = [int(self.grid.scale*self.size_rescale[0]),int(self.grid.scale*self.size_rescale[1])]
+    self.gui.Image(self.images.getImage(self.texture),self.x - size[0]/2,self.y - size[1]/2,size[0],size[1])
+    self.gui.Rect(self.x,self.y,2,2)
+
+class Crate(BaseClass):
+  def __init__(self,x,y):
+    self.permitCollisions = ['tank','bullet']
+    self.size_rescale = (1,1.2)
+    self.texture = 'crate_test'
+    self.x = x
+    self.y = y
+
+  def render(self):
+    size = [int(self.grid.scale*self.size_rescale[0]),int(self.grid.scale*self.size_rescale[1])]
+    self.gui.Image(self.images.getImage(self.texture),self.x - size[0]/2,self.y - size[1]/2,size[0],size[1])
+    self.gui.Color('FF0000')
+    self.gui.Rect(self.x,self.y,2,2)

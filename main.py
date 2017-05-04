@@ -3,7 +3,9 @@ from tank import Tank
 from bullet import Bullet
 from tile import Tile
 from tile import Flower
+from tile import Crate
 from grid import Grid
+from BaseClass import BaseClass
 from imageLoader import imageLoader
 
 from random import random
@@ -15,7 +17,11 @@ import pygame
 imageloader = imageLoader('assets/images/')
 
 gui = GUI(400,400,'Battle Tanks')
-grid = Grid(16,16,'park')
+grid = Grid(16,16)
+
+BaseClass.grid = grid
+BaseClass.gui = gui
+BaseClass.images = imageloader
 
 Tank.gui = gui
 Tank.images = imageloader
@@ -23,11 +29,8 @@ Tank.grid = grid
 Bullet.gui = gui
 Bullet.images = imageloader
 Bullet.grid = grid
-Grid.gui = gui
-Tile.images = imageloader
-Flower.gui = gui
-Flower.grid = grid
-Flower.images = imageloader
+
+grid.Draw('park')
 
 done = False
 process_stage = 0
@@ -39,6 +42,7 @@ speed_bullet = 4
 render_sequence =  [grid]
 
 grid.Decorator(Flower,10,base_tile='grass')
+grid.Decorator(Crate,4,base_tile='road',z=6)
 
 def stage(n):
   global gui

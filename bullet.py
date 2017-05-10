@@ -26,7 +26,7 @@ class Bullet:
 
   def move(self):
     if not self.grid.grabCollision(self.x,self.y,'bullet',r=8) \
-       and time.time() - self.time < 6:
+       and time.time() - self.time < 6 and self.alive:
       self.x += self.vec[0]
       self.y += self.vec[1]
     else:

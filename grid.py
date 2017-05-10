@@ -51,8 +51,10 @@ class Grid(BaseClass):
         for k in self.contents:
           for l in k:
             if t in l.permitCollisions:
+
               j_size = [int(self.scale*l.size_rescale[0]),int(self.scale*l.size_rescale[1])]
               if (x_val - j_size[0]/2 < l.x < x_val + j_size[0]/2) and (j - j_size[1]/2 < l.y < j + j_size[1]/2):
+                l.CollisionManager(t)
                 return True
     return False
 
@@ -66,6 +68,13 @@ class Grid(BaseClass):
         except IndexError:
           self.contents.append([])
       self.contents[zprior].append(obj)
+
+  def deleteRenderingComponent(self,obj):
+    for i in self.contents:
+      for j in i:
+        if j == obj:
+          i.remove(obj)
+          break
 
   def Decorator(self,tile,number,base_tile='all',z=2,r=0):
     for _ in range(number):

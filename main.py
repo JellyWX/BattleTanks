@@ -1,9 +1,7 @@
 from gui import GUI
 from tank import Tank
 from bullet import Bullet
-from tile import Tile
-from tile import Flower
-from tile import Crate
+from tile import Tile, Flower, Crate, MiniCrate
 from grid import Grid
 from BaseClass import BaseClass
 from imageLoader import imageLoader
@@ -47,6 +45,7 @@ render_sequence =  [grid]
 
 grid.Decorator(Flower,10,base_tile='grass')
 grid.Decorator(Crate,4,base_tile='road',z=6)
+grid.Decorator(MiniCrate,6,z=6)
 
 def stage(n):
   global gui

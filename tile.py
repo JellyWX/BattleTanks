@@ -55,3 +55,12 @@ class Crate(BaseClass):
     if BaseClass.gui.debug:
       Crate.gui.Color('FF0000')
       Crate.gui.Rect(self.x,self.y,2,2)
+
+class MiniCrate(Crate):
+  def __init__(self,x,y):
+    super().__init__(x,y)
+    self.size_rescale = (0.5,0.6)
+
+  def CollisionManager(self,t):
+    if t == 'bullet':
+      Crate.grid.deleteRenderingComponent(self)

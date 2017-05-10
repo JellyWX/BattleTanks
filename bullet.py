@@ -1,11 +1,9 @@
+from BaseClass import BaseClass
+
 import time
 import math
 
-class Bullet:
-
-  gui = 0
-  images = 0
-  grid = 0
+class Bullet(BaseClass):
   def __init__(self,x,y,vec):
 
     ## Subcritical data ##

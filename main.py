@@ -44,8 +44,10 @@ speed_bullet = 4
 render_sequence =  [grid]
 
 grid.Decorator(Flower,10,base_tile='grass')
-grid.Decorator(Crate,4,base_tile='road',z=6)
+grid.Decorator(Crate,16,base_tile='road',z=6)
 grid.Decorator(MiniCrate,6,z=6)
+
+grid.sortRenderingComponents()
 
 def stage(n):
   global gui

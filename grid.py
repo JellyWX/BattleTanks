@@ -76,13 +76,39 @@ class Grid(BaseClass):
           i.remove(obj)
           break
 
-  def Decorator(self,tile,number,base_tile='all',z=2,r=0):
+  def sortRenderingComponents(self):
+    for i in self.contents:
+      i.sort(key=lambda x:x.y)
+
+  def Decorator(self,tile,number,base_tile='all',z=2,stack=False):
     for _ in range(number):
+      stacked = False
       rx = randint(0,self.size_x*self.scale-1)
       ry = randint(0,self.size_y*self.scale-1)
-      while base_tile not in self.map[ry // self.scale][rx // self.scale].name:
+      if not stack:
+        for li in self.contents:
+          for item in li:
+            if type(item) == tile:
+              x = self.scale * item.size_rescale[0]
+              y = self.scale * item.size_rescale[1]
+              if (item.x - x < rx < item.x + x and item.y - y < ry < item.y + y) or stacked:
+                stacked = True
+                print('stack detected')
+                break
+      while base_tile not in self.map[ry // self.scale][rx // self.scale].name or stacked:
+        stacked = False
         rx = randint(0,self.size_x*self.scale-1)
         ry = randint(0,self.size_y*self.scale-1)
+        if not stack:
+          for li in self.contents:
+            for item in li:
+              if type(item) == tile:
+                x = self.scale * item.size_rescale[0]
+                y = self.scale * item.size_rescale[1]
+                if (item.x - x < rx < item.x + x and item.y - y < ry < item.y + y) or stacked:
+                  stacked = True
+                  print('stack detected')
+                  break
       self.addRenderingComponent(tile(rx,ry),zprior=z)
 
   def render(self):

@@ -1,14 +1,11 @@
 from bullet import Bullet
+from BaseClass import BaseClass
+
 
 import time
 import math
 
-class Tank:
-
-  gui = 0
-  images = 0
-  grid = 0
-
+class Tank(BaseClass):
   def __init__(self,x,y,player=True):
 
     ## Subcritical data ##

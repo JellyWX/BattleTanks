@@ -13,6 +13,7 @@ def rot_center(image, angle):
     return rot_image
 
 class GUI(object):
+  debug = False
   def __init__(self,w,h,title):
     self.width = w
     self.height = h

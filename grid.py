@@ -43,16 +43,17 @@ class Grid(BaseClass):
       x_val = round(x_val)
       y_val[0] = round(y_val[0])
       y_val[1] = round(y_val[1])
-      if x_val <= 0 or y_val[0] <= 0 or y_val[1] <= 0:
-        return True
-      if x_val >= self.size_x*self.scale or y_val[0] >= self.size_y*self.scale or y_val[1] >= self.size_y*self.scale:
-        return True
-    for i in self.contents:
-      for j in i:
-        if t in j.permitCollisions:
-          j_size = [int(self.scale*j.size_rescale[0]),int(self.scale*j.size_rescale[1])]
-          if (x - j_size[0]/2 < j.x < x + j_size[0]/2) and (y - j_size[1]/2 < j.y < y + j_size[1]/2):
-            return True
+      for j in y_val:
+        if x_val <= 0 or j <= 0:
+          return True
+        if x_val >= self.size_x*self.scale or j >= self.size_y*self.scale:
+          return True
+        for k in self.contents:
+          for l in k:
+            if t in l.permitCollisions:
+              j_size = [int(self.scale*l.size_rescale[0]),int(self.scale*l.size_rescale[1])]
+              if (x_val - j_size[0]/2 < l.x < x_val + j_size[0]/2) and (j - j_size[1]/2 < l.y < j + j_size[1]/2):
+                return True
     return False
 
   def addRenderingComponent(self,obj,zprior=0):
@@ -66,7 +67,7 @@ class Grid(BaseClass):
           self.contents.append([])
       self.contents[zprior].append(obj)
 
-  def Decorator(self,tile,number,base_tile='all',z=2):
+  def Decorator(self,tile,number,base_tile='all',z=2,r=0):
     for _ in range(number):
       rx = randint(0,self.size_x*self.scale-1)
       ry = randint(0,self.size_y*self.scale-1)

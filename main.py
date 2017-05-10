@@ -13,6 +13,10 @@ from random import random
 import math
 import os
 import pygame
+import sys
+
+if 'debug' in sys.argv:
+  GUI.debug = True
 
 imageloader = imageLoader('assets/images/')
 

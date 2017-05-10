@@ -13,7 +13,7 @@ class Tile(BaseClass):
     return None
 
   def render(self):
-    return self.images.getImage(self.texture)
+    return Tile.images.getImage(self.texture)
 
 class GrassTile(Tile):
   def assign(self):
@@ -35,9 +35,11 @@ class Flower(BaseClass):
     self.y = y
 
   def render(self):
-    size = [int(self.grid.scale*self.size_rescale[0]),int(self.grid.scale*self.size_rescale[1])]
-    self.gui.Image(self.images.getImage(self.texture),self.x - size[0]/2,self.y - size[1]/2,size[0],size[1])
-    self.gui.Rect(self.x,self.y,2,2)
+    size = [int(Flower.grid.scale*self.size_rescale[0]),int(Flower.grid.scale*self.size_rescale[1])]
+    Flower.gui.Image(Flower.images.getImage(self.texture),self.x - size[0]/2,self.y - size[1]/2,size[0],size[1])
+    if BaseClass.gui.debug:
+      Flower.gui.Color('FF0000')
+      Flower.gui.Rect(self.x,self.y,2,2)
 
 class Crate(BaseClass):
   def __init__(self,x,y):
@@ -48,7 +50,8 @@ class Crate(BaseClass):
     self.y = y
 
   def render(self):
-    size = [int(self.grid.scale*self.size_rescale[0]),int(self.grid.scale*self.size_rescale[1])]
-    self.gui.Image(self.images.getImage(self.texture),self.x - size[0]/2,self.y - size[1]/2,size[0],size[1])
-    self.gui.Color('FF0000')
-    self.gui.Rect(self.x,self.y,2,2)
+    size = [int(Crate.grid.scale*self.size_rescale[0]),int(Crate.grid.scale*self.size_rescale[1])]
+    Crate.gui.Image(Crate.images.getImage(self.texture),self.x - size[0]/2,self.y - size[1]/2,size[0],size[1])
+    if BaseClass.gui.debug:
+      Crate.gui.Color('FF0000')
+      Crate.gui.Rect(self.x,self.y,2,2)

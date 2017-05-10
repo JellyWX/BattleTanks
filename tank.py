@@ -86,3 +86,15 @@ class Tank:
   def render(self):
     Tank.gui.Image(Tank.images.getImage('tank1'),self.x-24,self.y-24,int(1.5*self.grid.scale),int(1.5*self.grid.scale),self.rotation)
     Tank.gui.Image(Tank.images.getImage('turret1'),self.x-24,self.y-24,int(1.5*self.grid.scale),int(1.5*self.grid.scale),self.turret_rotation)
+    if Tank.gui.debug:
+      r_sq = 16*16
+      for i in range(-16,16):
+        x_val = self.x + i
+        i_sq_val = math.sqrt(r_sq - (i*i))
+        y_val = [self.y + i_sq_val,self.y - i_sq_val]
+        x_val = round(x_val)
+        y_val[0] = round(y_val[0])
+        y_val[1] = round(y_val[1])
+        Tank.gui.Color('FF0000')
+        Tank.gui.Rect(x_val,y_val[0],2,2)
+        Tank.gui.Rect(x_val,y_val[1],2,2)

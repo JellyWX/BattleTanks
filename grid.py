@@ -1,4 +1,5 @@
 from tile import *
+from tank import Tank
 from random import randint
 from BaseClass import BaseClass
 
@@ -25,11 +26,19 @@ class Grid(BaseClass):
         self.map.append([])
         for j in range(self.size_x):
           self.map[i].append(GrassTile())
-    elif t == 'park':
+    elif t == 'park1':
       for i in range(self.size_y):
         self.map.append([])
         for j in range(self.size_x):
           if j == 0 or j == self.size_y - 1:
+            self.map[i].append(RoadTile())
+          else:
+            self.map[i].append(GrassTile())
+    elif t == 'park2':
+      for i in range(self.size_y):
+        self.map.append([])
+        for j in range(self.size_x):
+          if j == 0 or j == self.size_y - 1 or i == self.size_y // 2:
             self.map[i].append(RoadTile())
           else:
             self.map[i].append(GrassTile())
@@ -80,7 +89,7 @@ class Grid(BaseClass):
     for i in self.contents:
       i.sort(key=lambda x:x.y)
 
-  def Decorator(self,tile,number,base_tile='all',z=2,stack=False):
+  def Decorator(self,tile,number,base_tile='all',z=2,stack=False,also_avoid=[]):
     for _ in range(number):
       stacked = False
       rx = randint(0,self.size_x*self.scale-1)
@@ -88,12 +97,11 @@ class Grid(BaseClass):
       if not stack:
         for li in self.contents:
           for item in li:
-            if type(item) == tile:
+            if type(item) == tile or type(item) in also_avoid:
               x = self.scale * item.size_rescale[0]
               y = self.scale * item.size_rescale[1]
-              if (item.x - x < rx < item.x + x and item.y - y < ry < item.y + y) or stacked:
+              if (item.x - x + 1 < rx < item.x + x - 1 and item.y - y + 1 < ry < item.y + y - 1) or stacked:
                 stacked = True
-                print('stack detected')
                 break
       while base_tile not in self.map[ry // self.scale][rx // self.scale].name or stacked:
         stacked = False
@@ -102,12 +110,11 @@ class Grid(BaseClass):
         if not stack:
           for li in self.contents:
             for item in li:
-              if type(item) == tile:
+              if type(item) == tile or type(item) in also_avoid:
                 x = self.scale * item.size_rescale[0]
                 y = self.scale * item.size_rescale[1]
                 if (item.x - x < rx < item.x + x and item.y - y < ry < item.y + y) or stacked:
                   stacked = True
-                  print('stack detected')
                   break
       self.addRenderingComponent(tile(rx,ry),zprior=z)
 

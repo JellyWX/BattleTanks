@@ -25,14 +25,7 @@ BaseClass.grid = grid
 BaseClass.gui = gui
 BaseClass.images = imageloader
 
-Tank.gui = gui
-Tank.images = imageloader
-Tank.grid = grid
-Bullet.gui = gui
-Bullet.images = imageloader
-Bullet.grid = grid
-
-grid.Draw('park')
+grid.Draw('park2')
 
 done = False
 process_stage = 0
@@ -41,11 +34,11 @@ player_sequence = [player]
 speed = 2
 speed_bullet = 4
 
-render_sequence =  [grid]
+render_sequence = [grid]
 
-grid.Decorator(Flower,10,base_tile='grass')
-grid.Decorator(Crate,16,base_tile='road',z=6)
-grid.Decorator(MiniCrate,6,z=6)
+grid.Decorator(Flower,24,base_tile='grass',also_avoid=[Crate])
+grid.Decorator(Crate,6,base_tile='road',z=6,also_avoid=[Tank])
+grid.Decorator(MiniCrate,6,z=6,also_avoid=[Crate,Tank])
 
 grid.sortRenderingComponents()
 

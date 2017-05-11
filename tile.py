@@ -28,7 +28,7 @@ class RoadTile(Tile):
 
 class Flower(BaseClass):
   def __init__(self,x,y):
-    self.permitCollisions = []
+    self.permitCollisions = ['tank']
     self.size_rescale = (0.5,0.5)
     self.texture = choice(['flower1','flower2'])
     self.x = x
@@ -40,6 +40,11 @@ class Flower(BaseClass):
     if BaseClass.gui.debug:
       Flower.gui.Color('FF0000')
       Flower.gui.Rect(self.x,self.y,2,2)
+
+  def CollisionManager(self,t):
+    print('flower collisions')
+    if t == 'tank':
+      Flower.grid.deleteRenderingComponent(self)
 
 class Crate(BaseClass):
   def __init__(self,x,y):

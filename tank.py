@@ -25,6 +25,8 @@ class Tank(BaseClass):
 
     self.grid.addRenderingComponent(self,zprior=5)
 
+    self.size_rescale = (1.5,1.5)
+
     self.ai = not player
 
   def move_cursor(self,vec,rotation):
@@ -81,8 +83,8 @@ class Tank(BaseClass):
             break
 
   def render(self):
-    Tank.gui.Image(Tank.images.getImage('tank1'),self.x-24,self.y-24,int(1.5*self.grid.scale),int(1.5*self.grid.scale),self.rotation)
-    Tank.gui.Image(Tank.images.getImage('turret1'),self.x-24,self.y-24,int(1.5*self.grid.scale),int(1.5*self.grid.scale),self.turret_rotation)
+    Tank.gui.Image(Tank.images.getImage('tank1'),self.x-24,self.y-24,int(self.size_rescale[0]*self.grid.scale),int(self.size_rescale[1]*self.grid.scale),self.rotation)
+    Tank.gui.Image(Tank.images.getImage('turret1'),self.x-24,self.y-24,int(self.size_rescale[0]*self.grid.scale),int(self.size_rescale[1]*self.grid.scale),self.turret_rotation)
     if Tank.gui.debug:
       r_sq = 16*16
       for i in range(-16,16):

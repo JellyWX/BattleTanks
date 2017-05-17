@@ -28,7 +28,7 @@ class RoadTile(Tile):
 
 class Flower(BaseClass):
   def __init__(self,x,y):
-    self.size_rescale = (0.5,0.5)
+    self.size_rescale = (0.6,0.6)
     self.texture = choice(['flower1','flower2'])
     self.permitCollisions = ['tank']
     self.x = x

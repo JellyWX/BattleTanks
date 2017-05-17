@@ -15,6 +15,7 @@ class Bullet(BaseClass):
     self.vec = vec
     self.time = time.time()
     self.alive = True
+    self.speed = 6
 
     self.permitCollisions = []
 
@@ -27,8 +28,8 @@ class Bullet(BaseClass):
   def move(self):
     if not self.grid.grabCollision(self.x,self.y,'bullet',r=8) \
        and time.time() - self.time < 6 and self.alive:
-      self.x += self.vec[0]
-      self.y += self.vec[1]
+      self.x += self.vec[0]*self.speed
+      self.y += self.vec[1]*self.speed
     else:
       self.alive = False
 

@@ -31,8 +31,6 @@ done = False
 process_stage = 0
 player = Tank(40,40)
 player_sequence = [player]
-speed = 2
-speed_bullet = 4
 
 render_sequence = [grid]
 
@@ -67,7 +65,7 @@ def stage(n):
         hyp_dis_x = dx / hyp_tank
         hyp_dis_y = dy / hyp_tank
 
-        final_vec = (speed*hyp_dis_x,speed*hyp_dis_y)
+        final_vec = (hyp_dis_x,hyp_dis_y)
         final_rotation = math.atan2(final_vec[0],final_vec[1])*180/math.pi
 
         player.move_cursor(final_vec,final_rotation+180)
@@ -84,7 +82,7 @@ def stage(n):
       hyp_dis_x_bullet = dx / hyp_bullet
       hyp_dis_y_bullet = dy / hyp_bullet
 
-      bullet_vec = (speed_bullet*hyp_dis_x_bullet,speed_bullet*hyp_dis_y_bullet)
+      bullet_vec = (hyp_dis_x_bullet,hyp_dis_y_bullet)
 
       player.attack(bullet_vec)
 

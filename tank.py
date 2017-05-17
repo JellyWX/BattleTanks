@@ -17,6 +17,7 @@ class Tank(BaseClass):
     self.x = x
     self.y = y
     self.vec = (0,0)
+    self.speed = 3
 
     self.rotation = 0
     self.turret_rotation = 0
@@ -42,15 +43,15 @@ class Tank(BaseClass):
     '## Credits to /u/swimmer91 on Reddit for help with the line above. Many thanks! ##'
     if self.collisions(round(vec[0]),round(vec[1])):
       if rot_diff < 10:
-        self.x += round(vec[0])
-        self.y += round(vec[1])
+        self.x += round(vec[0]*self.speed)
+        self.y += round(vec[1]*self.speed)
       elif rot_diff < 180:
         self.rotation += 10
       elif rot_diff > 180:
         self.rotation -= 10
       else:
-        self.x += round(vec[0])
-        self.y += round(vec[1])
+        self.x += round(vec[0]*self.speed)
+        self.y += round(vec[1]*self.speed)
     self.vec = vec
 
   def move_keys(self,direction=0):

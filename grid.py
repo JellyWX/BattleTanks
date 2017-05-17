@@ -63,8 +63,7 @@ class Grid(BaseClass):
 
               j_size = [int(self.scale*l.size_rescale[0]),int(self.scale*l.size_rescale[1])]
               if (x_val - j_size[0]/2 < l.x < x_val + j_size[0]/2) and (j - j_size[1]/2 < l.y < j + j_size[1]/2):
-                l.CollisionManager(t)
-                return True
+                return l.CollisionManager(t)
     return False
 
   def addRenderingComponent(self,obj,zprior=0):

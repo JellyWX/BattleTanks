@@ -18,6 +18,8 @@ class Bullet(BaseClass):
 
     self.permitCollisions = []
 
+    self.size_rescale = (0.5,0.5)
+
     self.rotation = math.atan2(self.vec[0],self.vec[1])*180/math.pi
 
     self.grid.addRenderingComponent(self,zprior=4)
@@ -32,4 +34,4 @@ class Bullet(BaseClass):
 
   def render(self):
     if self.alive:
-      self.gui.Image(self.images.getImage('bullet'),self.x-8,self.y-8,int(0.5*self.grid.scale),int(0.5*self.grid.scale),self.rotation+180)
+      self.gui.Image(self.images.getImage('bullet'),self.x-8,self.y-8,int(self.size_rescale[0]*self.grid.scale),int(self.size_rescale[1]*self.grid.scale),self.rotation+180)

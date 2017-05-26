@@ -58,13 +58,17 @@ class Tank(BaseClass):
     self.vec = vec
 
   def move_keys(self,direction=0):
-    if round(self.goto_rotation,-1) == self.rotation and self.collisions():
+    if round(self.goto_rotation,-1) == self.rotation:
       if direction == 0:
-        self.x -= self.vec[0]*self.speed
-        self.y -= self.vec[1]*self.speed
+        if self.collisions_x(self.vec[0]*self.speed):
+          self.x -= self.vec[0]*self.speed
+        if self.collisions_x(self.vec[1]*self.speed):
+          self.y -= self.vec[1]*self.speed
       if direction == 1:
-        self.x += self.vec[0]*self.speed
-        self.y += self.vec[1]*self.speed
+        if self.collisions_x(self.vec[0]*self.speed):
+          self.x += self.vec[0]*self.speed
+        if self.collisions_x(self.vec[1]*self.speed):
+          self.y += self.vec[1]*self.speed
 
   def collisions_x(self,x_add):
     if self.grid.grabCollision(self.x+x_add,self.y,self,r=16):
@@ -96,7 +100,8 @@ class Tank(BaseClass):
     Tank.gui.Image(Tank.images.getImage('turret1'),self.x-24,self.y-24,int(self.size_rescale[0]*self.grid.scale),int(self.size_rescale[1]*self.grid.scale),self.turret_rotation)
     if Tank.gui.debug:
       r_sq = 16*16
-      for i in range(-16,16):
+      for j in range(-32,33):
+        i = j/2
         x_val = self.x + i
         i_sq_val = math.sqrt(r_sq - (i*i))
         y_val = [self.y + i_sq_val,self.y - i_sq_val]

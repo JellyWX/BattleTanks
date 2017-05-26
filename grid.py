@@ -45,7 +45,8 @@ class Grid(BaseClass):
 
   def grabCollision(self,x,y,t,r=16):
     r_sq = r*r
-    for i in range(-r,r):
+    for j in range(-r*2,r*2 + 1):
+      i = j/2
       x_val = x + i
       i_sq_val = math.sqrt(r_sq - (i*i))
       y_val = [y + i_sq_val,y - i_sq_val]

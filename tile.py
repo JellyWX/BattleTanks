@@ -69,9 +69,16 @@ class Crate(BaseClass):
 class MiniCrate(Crate):
   def __init__(self,x,y):
     super().__init__(x,y)
+    self.texture = choice(['metal_crate','crate_test'])
     self.size_rescale = (0.5,0.6)
 
   def CollisionManager(self,t):
     if type(t) == Bullet:
       Crate.grid.deleteRenderingComponent(self)
     return True
+
+class WeaponCrate(Crate):
+  def __init__(self,x,y):
+    super().__init__(x,y)
+    self.texture = choice(['metal_crate','metal_crate2'])
+    self.size_rescale = (1.5,1.2)

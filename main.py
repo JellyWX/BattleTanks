@@ -1,7 +1,7 @@
 from gui import GUI
 from tank import Tank
 from bullet import Bullet
-from tile import Tile, Flower, Crate, MiniCrate
+from tile import Tile, Flower, Crate, MiniCrate, WeaponCrate
 from grid import Grid
 from BaseClass import BaseClass
 from imageLoader import imageLoader
@@ -37,6 +37,7 @@ render_sequence = [grid]
 grid.Decorator(Flower,24,base_tile='grass',also_avoid=[Crate])
 grid.Decorator(Crate,6,base_tile='road',z=6,also_avoid=[Tank])
 grid.Decorator(MiniCrate,16,z=6,also_avoid=[Crate,Tank])
+grid.Decorator(WeaponCrate,2,z=6,also_avoid=[Crate,MiniCrate,Flower,Tank])
 
 grid.sortRenderingComponents()
 

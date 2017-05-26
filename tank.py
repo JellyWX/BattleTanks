@@ -41,30 +41,38 @@ class Tank(BaseClass):
     rot_diff = (rotation - self.rotation) % 360
 
     '## Credits to /u/swimmer91 on Reddit for help with the line above. Many thanks! ##'
-    if self.collisions(round(vec[0]),round(vec[1])):
-      if rot_diff < 10:
+    if rot_diff < 10:
+      if self.collisions_x(vec[0]*self.speed):
         self.x += round(vec[0]*self.speed)
+      if self.collisions_y(vec[1]*self.speed):
         self.y += round(vec[1]*self.speed)
-      elif rot_diff < 180:
-        self.rotation += 10
-      elif rot_diff > 180:
-        self.rotation -= 10
-      else:
+    elif rot_diff < 180:
+      self.rotation += 10
+    elif rot_diff > 180:
+      self.rotation -= 10
+    else:
+      if self.collisions_x(vec[0]*self.speed):
         self.x += round(vec[0]*self.speed)
+      if self.collisions_y(vec[1]*self.speed):
         self.y += round(vec[1]*self.speed)
     self.vec = vec
 
   def move_keys(self,direction=0):
-    if round(self.goto_rotation,-1) == self.rotation and self.collisions(self.vec[0],self.vec[1]):
+    if round(self.goto_rotation,-1) == self.rotation and self.collisions():
       if direction == 0:
-        self.x -= self.vec[0]
-        self.y -= self.vec[1]
+        self.x -= self.vec[0]*self.speed
+        self.y -= self.vec[1]*self.speed
       if direction == 1:
-        self.x += self.vec[0]
-        self.y += self.vec[1]
+        self.x += self.vec[0]*self.speed
+        self.y += self.vec[1]*self.speed
 
-  def collisions(self,x_add,y_add):
-    if self.grid.grabCollision(self.x + x_add, self.y + y_add,self,r=16):
+  def collisions_x(self,x_add):
+    if self.grid.grabCollision(self.x+x_add,self.y,self,r=16):
+      return False
+    return True
+
+  def collisions_y(self,y_add):
+    if self.grid.grabCollision(self.x,self.y+y_add,self,r=16):
       return False
     return True
 

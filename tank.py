@@ -64,7 +64,7 @@ class Tank(BaseClass):
         self.y += self.vec[1]
 
   def collisions(self,x_add,y_add):
-    if self.grid.grabCollision(self.x + x_add, self.y + y_add,'tank',r=16):
+    if self.grid.grabCollision(self.x + x_add, self.y + y_add,self,r=16):
       return False
     return True
 

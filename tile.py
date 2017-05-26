@@ -1,5 +1,7 @@
 from random import randint, choice
 from BaseClass import BaseClass
+from tank import Tank
+from bullet import Bullet
 
 class Tile(BaseClass):
   def __init__(self):
@@ -30,7 +32,7 @@ class Flower(BaseClass):
   def __init__(self,x,y):
     self.size_rescale = (0.6,0.6)
     self.texture = choice(['flower1','flower2'])
-    self.permitCollisions = ['tank']
+    self.permitCollisions = [Tank]
     self.x = x
     self.y = y
 
@@ -42,7 +44,7 @@ class Flower(BaseClass):
       Flower.gui.Rect(self.x,self.y,2,2)
 
   def CollisionManager(self,t):
-    if t == 'tank':
+    if type(t) == Tank:
       Flower.grid.deleteRenderingComponent(self)
       return False
 
@@ -50,7 +52,7 @@ class Crate(BaseClass):
   def __init__(self,x,y):
     self.size_rescale = (1,1.2)
     self.texture = 'crate_test'
-    self.permitCollisions = ['tank','bullet']
+    self.permitCollisions = [Tank,Bullet]
     self.x = x
     self.y = y
 
@@ -70,6 +72,6 @@ class MiniCrate(Crate):
     self.size_rescale = (0.5,0.6)
 
   def CollisionManager(self,t):
-    if t == 'bullet':
+    if type(t) == Bullet:
       Crate.grid.deleteRenderingComponent(self)
     return True

@@ -59,8 +59,7 @@ class Grid(BaseClass):
           return True
         for k in self.contents:
           for l in k:
-            if t in l.permitCollisions:
-
+            if type(t) in l.permitCollisions:
               j_size = [int(self.scale*l.size_rescale[0]),int(self.scale*l.size_rescale[1])]
               if (x_val - j_size[0]/2 < l.x < x_val + j_size[0]/2) and (j - j_size[1]/2 < l.y < j + j_size[1]/2):
                 return l.CollisionManager(t)

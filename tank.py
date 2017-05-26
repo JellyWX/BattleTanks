@@ -100,9 +100,6 @@ class Tank(BaseClass):
         x_val = self.x + i
         i_sq_val = math.sqrt(r_sq - (i*i))
         y_val = [self.y + i_sq_val,self.y - i_sq_val]
-        x_val = round(x_val)
-        y_val[0] = round(y_val[0])
-        y_val[1] = round(y_val[1])
         Tank.gui.Color('FF0000')
         Tank.gui.Rect(x_val,y_val[0],2,2)
         Tank.gui.Rect(x_val,y_val[1],2,2)

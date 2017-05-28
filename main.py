@@ -13,7 +13,7 @@ import os
 import pygame
 import sys
 
-if 'debug' in sys.argv:
+if '--debug-hitboxes' or '-dH' in sys.argv:
   GUI.debug = True
 
 imageloader = imageLoader('assets/images/')

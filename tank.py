@@ -1,7 +1,6 @@
 from bullet import Bullet
 from BaseClass import BaseClass
 
-
 import time
 import math
 

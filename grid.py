@@ -15,7 +15,6 @@ class Grid(BaseClass):
 
     self.map = []
 
-
     self.contents = []
 
     self.decorations = []

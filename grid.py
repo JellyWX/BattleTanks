@@ -41,6 +41,7 @@ class Grid(BaseClass):
             self.map[i].append(RoadTile())
           else:
             self.map[i].append(GrassTile())
+            
       self.Decorator(Flower,24,base_tile='grass',also_avoid=[Crate])
       self.Decorator(Crate,6,base_tile='road',z=6,also_avoid=[Tank])
       self.Decorator(MiniCrate,16,z=6,also_avoid=[Crate,Tank])

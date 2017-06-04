@@ -16,7 +16,7 @@ class Tank(BaseClass):
     self.x = x
     self.y = y
     self.vec = (0,0)
-    self.speed = 3
+    self.speed = 0.1
 
     self.rotation = 0
     self.turret_rotation = 0
@@ -41,33 +41,33 @@ class Tank(BaseClass):
 
     '## Credits to /u/swimmer91 on Reddit for help with the line above. Many thanks! ##'
     if rot_diff < 10:
-      if self.collisions_x(vec[0]*self.speed):
-        self.x += round(vec[0]*self.speed)
-      if self.collisions_y(vec[1]*self.speed):
-        self.y += round(vec[1]*self.speed)
+      if self.collisions_x(vec[0]*self.speed*Tank.grid.scale):
+        self.x += round(vec[0]*self.speed*Tank.grid.scale)
+      if self.collisions_y(vec[1]*self.speed*Tank.grid.scale):
+        self.y += round(vec[1]*self.speed*Tank.grid.scale)
     elif rot_diff < 180:
       self.rotation += 10
     elif rot_diff > 180:
       self.rotation -= 10
     else:
-      if self.collisions_x(vec[0]*self.speed):
-        self.x += round(vec[0]*self.speed)
-      if self.collisions_y(vec[1]*self.speed):
-        self.y += round(vec[1]*self.speed)
+      if self.collisions_x(vec[0]*self.speed*Tank.grid.scale):
+        self.x += round(vec[0]*self.speed*Tank.grid.scale)
+      if self.collisions_y(vec[1]*self.speed*Tank.grid.scale):
+        self.y += round(vec[1]*self.speed*Tank.grid.scale)
     self.vec = vec
 
   def move_keys(self,direction=0):
     if round(self.goto_rotation,-1) == self.rotation:
       if direction == 0:
-        if self.collisions_x(self.vec[0]*self.speed):
-          self.x -= self.vec[0]*self.speed
-        if self.collisions_x(self.vec[1]*self.speed):
-          self.y -= self.vec[1]*self.speed
+        if self.collisions_x(self.vec[0]*self.speed*Tank.grid.scale):
+          self.x -= self.vec[0]*self.speed*Tank.grid.scale
+        if self.collisions_x(self.vec[1]*self.speed*Tank.grid.scale):
+          self.y -= self.vec[1]*self.speed*Tank.grid.scale
       if direction == 1:
-        if self.collisions_x(self.vec[0]*self.speed):
-          self.x += self.vec[0]*self.speed
-        if self.collisions_x(self.vec[1]*self.speed):
-          self.y += self.vec[1]*self.speed
+        if self.collisions_x(self.vec[0]*self.speed*Tank.grid.scale):
+          self.x += self.vec[0]*self.speed*Tank.grid.scale
+        if self.collisions_x(self.vec[1]*self.speed*Tank.grid.scale):
+          self.y += self.vec[1]*self.speed*Tank.grid.scale
 
   def collisions_x(self,x_add):
     if self.grid.grabCollision(self.x+x_add,self.y,self,r=16):

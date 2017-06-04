@@ -26,7 +26,6 @@ BaseClass.grid = grid
 BaseClass.gui = gui
 BaseClass.images = imageloader
 
-grid.Draw('park2')
 
 done = False
 process_stage = 0
@@ -34,6 +33,7 @@ player = Tank(40,40)
 player_sequence = [player]
 render_sequence = [grid]
 
+grid.Draw('park2')
 grid.sortRenderingComponents()
 
 def stage(n):

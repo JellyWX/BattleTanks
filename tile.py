@@ -55,6 +55,7 @@ class Crate(BaseClass):
     self.permitCollisions = [Tank,Bullet]
     self.x = x
     self.y = y
+    self.bounce = True
 
   def render(self):
     size = [int(Crate.grid.scale*self.size_rescale[0]),int(Crate.grid.scale*self.size_rescale[1])]
@@ -75,6 +76,7 @@ class MiniCrate(Crate):
   def CollisionManager(self,t):
     if type(t) == Bullet:
       Crate.grid.deleteRenderingComponent(self)
+      t.alive = False
     return True
 
 class WeaponCrate(Crate):
@@ -82,3 +84,4 @@ class WeaponCrate(Crate):
     super().__init__(x,y)
     self.texture = choice(['metal_crate','metal_crate2'])
     self.size_rescale = (1.5,1.2)
+    self.bounce = False

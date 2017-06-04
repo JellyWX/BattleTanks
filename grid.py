@@ -41,13 +41,13 @@ class Grid(BaseClass):
             self.map[i].append(RoadTile())
           else:
             self.map[i].append(GrassTile())
-            
+
       self.Decorator(Flower,24,base_tile='grass',also_avoid=[Crate])
       self.Decorator(Crate,6,base_tile='road',z=6,also_avoid=[Tank])
       self.Decorator(MiniCrate,16,z=6,also_avoid=[Crate,Tank])
       self.Decorator(WeaponCrate,2,z=6,also_avoid=[Crate,MiniCrate,Flower,Tank])
 
-  def grabCollision(self,x,y,t,r=16):
+  def grabCollision(self,x,y,t,r=16,obj=False):
     r_sq = r*r
     for j in range(-r*2,r*2 + 1):
       i = j/2
@@ -59,15 +59,21 @@ class Grid(BaseClass):
       y_val[1] = round(y_val[1])
       for j in y_val:
         if x_val <= 0 or j <= 0:
-          return True
+          if not obj:
+            return True
         if x_val >= self.size_x*self.scale or j >= self.size_y*self.scale:
-          return True
+          if not obj:
+            return True
         for k in self.contents:
           for l in k:
             if type(t) in l.permitCollisions:
               j_size = [int(self.scale*l.size_rescale[0]),int(self.scale*l.size_rescale[1])]
               if (x_val - j_size[0]/2 < l.x < x_val + j_size[0]/2) and (j - j_size[1]/2 < l.y < j + j_size[1]/2):
+                if obj:
+                  return l
                 return l.CollisionManager(t)
+    if obj:
+      return BaseClass
     return False
 
   def addRenderingComponent(self,obj,zprior=0):

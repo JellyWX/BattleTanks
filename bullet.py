@@ -12,7 +12,7 @@ class Bullet(BaseClass):
     ## Critical data ##
     self.x = x
     self.y = y
-    self.vec = vec
+    self.vec = list(vec)
     self.time = time.time()
     self.alive = True
     self.speed = 0.2
@@ -26,11 +26,21 @@ class Bullet(BaseClass):
     self.grid.addRenderingComponent(self,zprior=4)
 
   def move(self):
-    if not self.grid.grabCollision(self.x,self.y,self,r=8) \
+    x_add = self.vec[0]*self.speed*Bullet.grid.scale
+    y_add = self.vec[1]*self.speed*Bullet.grid.scale
+
+    if not self.grid.grabCollision(self.x + x_add,self.y + y_add,self,r=8) \
        and time.time() - self.time < 6 and self.alive:
-      self.x += self.vec[0]*self.speed*Bullet.grid.scale
-      self.y += self.vec[1]*self.speed*Bullet.grid.scale
+      self.x += x_add
+      self.y += y_add
     else:
+      if self.grid.grabCollision(self.x + x_add,self.y,self,r=8,obj=True).bounce:
+        self.vec[0] *= -1
+      if self.grid.grabCollision(self.x,self.y + y_add,self,r=8,obj=True).bounce:
+        self.vec[1] *= -1
+      if self.grid.grabCollision(self.x + x_add,self.y + y_add,self,r=8,obj=True) == BaseClass:
+        self.alive = False
+    if time.time() - self.time > 6:
       self.alive = False
 
   def render(self):

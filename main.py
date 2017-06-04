@@ -13,8 +13,9 @@ import os
 import pygame
 import sys
 
-if '--debug-hitboxes' or '-dH' in sys.argv:
-  GUI.debug = True
+for arg in sys.argv:
+  if arg == '-dH' or arg == '--debug-hitboxes':
+    GUI.debug = True
 
 imageloader = imageLoader('assets/images/')
 
@@ -31,13 +32,7 @@ done = False
 process_stage = 0
 player = Tank(40,40)
 player_sequence = [player]
-
 render_sequence = [grid]
-
-grid.Decorator(Flower,24,base_tile='grass',also_avoid=[Crate])
-grid.Decorator(Crate,6,base_tile='road',z=6,also_avoid=[Tank])
-grid.Decorator(MiniCrate,16,z=6,also_avoid=[Crate,Tank])
-grid.Decorator(WeaponCrate,2,z=6,also_avoid=[Crate,MiniCrate,Flower,Tank])
 
 grid.sortRenderingComponents()
 

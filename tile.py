@@ -8,7 +8,7 @@ class Tile(BaseClass):
     self.name = ['all']
     self.permitCollisions = []
     self.texture = self.assign()
-    self.size_rescale = (1,1)
+    self.size_rescale = (1, 1)
     self.rotation = randint(0,359)
 
   def assign(self):

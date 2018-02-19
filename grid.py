@@ -57,6 +57,7 @@ class Grid(BaseClass):
       x_val = round(x_val)
       y_val[0] = round(y_val[0])
       y_val[1] = round(y_val[1])
+      
       for j in y_val:
         if x_val <= 0 or j <= 0:
           if not obj:

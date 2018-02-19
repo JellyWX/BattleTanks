@@ -4,10 +4,7 @@ import time
 import math
 
 class Bullet(BaseClass):
-  def __init__(self,x,y,vec):
-
-    ## Subcritical data ##
-    #self.grid
+  def __init__(self, x, y, vec):
 
     ## Critical data ##
     self.x = x
@@ -21,7 +18,7 @@ class Bullet(BaseClass):
 
     self.size_rescale = (0.5,0.5)
 
-    self.rotation = math.atan2(self.vec[0],self.vec[1])*180/math.pi
+    self.rotation = math.atan2(self.vec[0], self.vec[1])*180/math.pi
 
     self.grid.addRenderingComponent(self,zprior=4)
 
@@ -29,16 +26,23 @@ class Bullet(BaseClass):
     x_add = self.vec[0]*self.speed*Bullet.grid.scale
     y_add = self.vec[1]*self.speed*Bullet.grid.scale
 
-    if not self.grid.grabCollision(self.x + x_add,self.y + y_add,self,r=8) \
+    if not self.grid.grabCollision(self.x + x_add, self.y + y_add, self, r=8) \
        and time.time() - self.time < 6 and self.alive:
       self.x += x_add
       self.y += y_add
     else:
-      if self.grid.grabCollision(self.x + x_add,self.y,self,r=8,obj=True).bounce:
+      if self.grid.grabCollision(self.x + x_add, self.y, self, r=8, obj=True).bounce:
         self.vec[0] *= -1
-      if self.grid.grabCollision(self.x,self.y + y_add,self,r=8,obj=True).bounce:
+        self.rotation = math.atan2(self.vec[0], self.vec[1])*180/math.pi
+
+      if self.grid.grabCollision(self.x, self.y + y_add, self, r=8, obj=True).bounce:
         self.vec[1] *= -1
-      if self.grid.grabCollision(self.x + x_add,self.y + y_add,self,r=8,obj=True) == BaseClass:
+        self.rotation = math.atan2(self.vec[0], self.vec[1])*180/math.pi
+
+      elif not self.grid.grabCollision(self.x + x_add, self.y + y_add, self, r=8, obj=True).bounce:
+        self.alive = False
+
+      elif self.grid.grabCollision(self.x + x_add, self.y + y_add, self, r=8, obj=True) == BaseClass:
         self.alive = False
     if time.time() - self.time > 6:
       self.alive = False
